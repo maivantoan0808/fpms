@@ -9,11 +9,6 @@
             Enter your email to reset your password:
         </div>
     </div>
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
     <form class="m-login__form m-form" method="POST" action="{{ route('password.email') }}">
         @csrf
         <div class="form-group m-form__group">

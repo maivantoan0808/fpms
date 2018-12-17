@@ -54,6 +54,7 @@
     <script src="{{ asset('assets/auth/js/login.js') }}" type="text/javascript"></script>
     <!--end::Page Snippets -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {!! Toastr::message() !!}
     <script>
     @if($errors->any())
         @foreach($errors->all() as $error)
@@ -64,6 +65,7 @@
         @endforeach
     @endif
     </script>
+    @stack('js')
 </body>
 <!-- end::Body -->
 </html>
