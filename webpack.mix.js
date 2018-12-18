@@ -22,11 +22,11 @@ mix.copy('resources/assets/css/vendors.bundle.css',
 mix.copy('resources/assets/css/style.bundle.css',
     'public/assets/auth/css/style.bundle.css');
 
-mix.copy('resources/assets/js/vendors.bundle.js',
+mix.copy('resources/assets/template/js/vendors.bundle.js',
     'public/assets/auth/js/vendors.bundle.js');
-mix.copy('resources/assets/js/scripts.bundle.js',
+mix.copy('resources/assets/template/js/scripts.bundle.js',
     'public/assets/auth/js/scripts.bundle.js');
-mix.copy('resources/assets/js/login.js',
+mix.copy('resources/assets/template/js/login.js',
     'public/assets/auth/js/login.js');
 
 mix.copy('resources/assets/img/favicon.ico',

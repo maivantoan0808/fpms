@@ -30,6 +30,33 @@
                 @endif
             </div>
         </div>
+        <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{{ url('/auth/facebook') }}" class="btn btn-primary m-btn m-btn--icon m-btn--pill m-btn--air">
+                <span>
+                    <i class="fa fa-facebook-official"></i>
+                    <span>
+                        Facebook
+                    </span>
+                </span>
+            </a>
+            <a href="{{ url('/auth/google') }}" class="btn btn-danger m-btn m-btn--icon m-btn--pill m-btn--air">
+                <span>
+                    <i class="fa fa-google"></i>
+                    <span>
+                        Google
+                    </span>
+                </span>
+            </a>
+            <a href="{{ url('/auth/github') }}" class="btn btn-success m-btn m-btn--icon m-btn--pill m-btn--air">
+                <span>
+                    <i class="fa fa-google"></i>
+                    <span>
+                        Github
+                    </span>
+                </span>
+            </a>
+        </div>
         <div class="m-login__form-action">
             <button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
                 Sign In
