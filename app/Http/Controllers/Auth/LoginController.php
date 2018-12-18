@@ -53,7 +53,7 @@ class LoginController extends Controller
     /**
      * Obtain the user information from provider.  Check if the user already exists in our
      * database by looking up their provider_id in the database.
-     * If the user exists, log them in. Otherwise, create a new user then log them in. After that 
+     * If the user exists, log them in. Otherwise, create a new user then log them in. After that
      * redirect them to the authenticated users homepage.
      *
      * @return Response
@@ -63,7 +63,7 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
         $hasUser = User::where('email', $user->email)->first();
         
-        if ($hasUser && $hasUser->provider_id == NULL) {
+        if ($hasUser && $hasUser->provider_id == null) {
             Toastr::error('Email has been taken!', 'Error');
             return redirect()->route('login');
         } else {
@@ -90,11 +90,11 @@ class LoginController extends Controller
         } else {
             return User::create([
                 'role_id' => '2',
-                'name'     => $user->name,
-                'email'    => $user->email,
-                'password'    => 'NULL',
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => 'NULL',
                 'provider' => $provider,
-                'provider_id' => $user->id
+                'provider_id' => $user->id,
             ]);
         }
     }
