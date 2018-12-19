@@ -18,19 +18,25 @@ mix.js('resources/js/app.js', 'public/js')
 
 //Assets in auth
 mix.copy('resources/assets/template/css/vendors.bundle.css',
-    'public/assets/auth/css/vendors.bundle.css');
+    'public/assets/css/vendors.bundle.css');
 mix.copy('resources/assets/template/css/style.bundle.css',
-    'public/assets/auth/css/style.bundle.css');
+    'public/assets/css/style.bundle.css');
+mix.copy('resources/assets/template/css/fullcalendar.bundle.css',
+    'public/assets/css/fullcalendar.bundle.css');
 
 mix.copy('resources/assets/template/js/vendors.bundle.js',
-    'public/assets/auth/js/vendors.bundle.js');
+    'public/assets/js/vendors.bundle.js');
 mix.copy('resources/assets/template/js/scripts.bundle.js',
-    'public/assets/auth/js/scripts.bundle.js');
+    'public/assets/js/scripts.bundle.js');
 mix.copy('resources/assets/template/js/login.js',
     'public/assets/auth/js/login.js');
+mix.copy('resources/assets/template/js/dashboard.js',
+    'public/assets/js/dashboard.js');
+mix.copy('resources/assets/template/js/fullcalendar.bundle.js',
+    'public/assets/js/fullcalendar.bundle.js');
 
 mix.copy('resources/assets/template/img/favicon.ico',
-    'public/assets/auth/img/favicon.ico');
+    'public/assets/img/favicon.ico');
 mix.copy('resources/assets/template/img/bg-1.jpg',
     'public/assets/auth/img/bg-1.jpg');
 mix.copy('resources/assets/template/img/logo-1.png',
