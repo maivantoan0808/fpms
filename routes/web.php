@@ -21,3 +21,19 @@ Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group([
+    'as' => 'admin.',
+    'prefix' => 'admin', 
+    'namespace' => 'Admin', 
+    'middleware' => ['auth', 'admin']], function(){
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+Route::group([
+    'as' => 'user.',
+    'prefix' => 'user', 
+    'namespace' => 'User', 
+    'middleware' => ['auth', 'user']], function(){
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
