@@ -21,11 +21,11 @@
     </script>
     <!--end::Web font -->
     <!--begin::Base Styles -->
-    <link href="{{ asset('assets/auth/css/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/auth/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/css/vendors.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!--end::Base Styles -->
-    <link rel="shortcut icon" href="{{ asset('assets/auth/img/favicon.ico') }}"/>
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}"/>
 </head>
 <!-- end::Head -->
 <!-- end::Body -->
@@ -47,8 +47,8 @@
     </div>
     <!-- end:: Page -->
     <!--begin::Base Scripts -->
-    <script src="{{ asset('assets/auth/js/vendors.bundle.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/auth/js/scripts.bundle.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/vendors.bundle.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/scripts.bundle.js') }}" type="text/javascript"></script>
     <!--end::Base Scripts -->   
     <!--begin::Page Snippets -->
     <script src="{{ asset('assets/auth/js/login.js') }}" type="text/javascript"></script>
