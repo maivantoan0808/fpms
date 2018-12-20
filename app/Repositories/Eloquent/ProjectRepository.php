@@ -18,4 +18,17 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     {
         $this->model = $project;
     }
+
+    /**
+     * List Projects User Doing
+     * @param int $userId
+     * @param array  $columns
+     * @return mixed
+     */
+    public function getProjectsByUser($userId, $columns = ['*'])
+    {
+        return $this->model->whereHas('users', function ($q) use ($userId) {
+            $q->where('users.id', $userId);
+        })->get($columns);
+    }
 }
