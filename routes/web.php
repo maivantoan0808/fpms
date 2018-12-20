@@ -36,4 +36,6 @@ Route::group([
     'namespace' => 'User', 
     'middleware' => ['auth', 'user']], function(){
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::resource('project', 'ProjectController');
 });

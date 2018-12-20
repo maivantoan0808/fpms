@@ -40,4 +40,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Role');
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project')->withTimestamps();
+    }
 }

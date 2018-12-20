@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Repositories\BaseRepositoryInterface;
+use App\Repositories\Interfaces\BaseRepositoryInterface;
 
 interface ProjectRepositoryInterface extends BaseRepositoryInterface
 {
-    //
+    public function getProjectsByUser($userId, $columns = ['*']);
 }
