@@ -40,9 +40,29 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <a href="{{ route('user.project.show', $project->id) }}" class="m-portlet__head-text">
-                                    {{ $project->name }}
+                                    <span>
+                                        {{ $project->name }}
+                                    </span>
                                 </a>
                             </div>
+                        </div>
+                        <div class="m-portlet__head-tools">
+                            <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item">
+                                    <a href="{{ route('user.project.edit', $project->id) }}" class="btn m-btn--pill btn-warning" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                        <span>
+                                            <i class="fa fa-edit"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-portlet__nav-item">
+                                    <a href="{{ route('user.project.destroy', $project->id) }}" class="btn m-btn--pill btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                        <span>
+                                            <i class="fa fa-trash"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="m-portlet__body">
