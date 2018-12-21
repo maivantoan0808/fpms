@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    Your Projects
+                    Your Projects ({{ $projects->count() }})
                 </h3>
                 <a href="{{ route('user.project.create') }}">
                     <button class="btn m-btn--pill btn-primary">
@@ -57,7 +57,7 @@
                                                 <a class="m-nav__link">
                                                     <i class="m-nav__link-icon flaticon-info"></i>
                                                     <span class="m-nav__link-text">
-                                                        Description: {{ $project->description }}
+                                                        Description: {!! $project->description !!}
                                                     </span>
                                                 </a>
                                             </li>
@@ -71,7 +71,7 @@
                                                             </span>
                                                             <span class="m-nav__link-badge">
                                                                 <span class="m-badge m-badge--success m-badge--wide">
-                                                                    {{ $project->users()->count() }}
+                                                                    {{ $project->users_count }}
                                                                 </span>
                                                             </span>
                                                         </span>
@@ -80,7 +80,7 @@
                                             </li>
                                             <br>
                                             <li class="m-nav__item">
-                                                <img src="{{ $project->image }}" alt="" style="width: 100%;">
+                                                <img src="{{ asset($project->image) }}" alt="" style="width: 100%;">
                                             </li>
                                         </ul>
                                     </div>

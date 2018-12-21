@@ -29,5 +29,9 @@ class RepositoryServiceProvider extends ServiceProvider
             ProjectRepositoryInterface::class,
             ProjectRepository::class
         );
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class
+        );
     }
 }
