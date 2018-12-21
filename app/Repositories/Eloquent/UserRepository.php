@@ -28,4 +28,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->where('role_id', 2)->get($columns);
     }
+
+    /**
+     * List Projects User Doing
+     * @param int $userId
+     * @param array  $columns
+     * @return mixed
+     */
+    public function getUsersOfProject($projectId, $columns = ['*'])
+    {
+        return $this->model->withCount('projects')
+            ->whereHas('projects', function ($q) use ($projectId) {
+                $q->where('projects.id', $projectId);
+            })
+            ->get($columns);
+    }
 }

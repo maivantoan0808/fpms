@@ -12,4 +12,5 @@ interface BaseRepositoryInterface
     public function save($model, array $data);
     public function delete($id);
     public function page($number, string $orderBy = 'created_at', string $sortBy = 'desc');
+    public function with($relations);
 }

@@ -105,4 +105,18 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->orderBy($orderBy, $sortBy)->paginate($number);
     }
+
+    /**
+     * Load relations
+     *
+     * @param array|string $relations
+     *
+     * @return $this
+     */
+    public function with($relations)
+    {
+        $this->model = $this->model->with($relations);
+
+        return $this;
+    }
 }

@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    Create New Project
+                    Edit Project: {{ $project->name }}
                 </h3>
             </div>
             <div>
@@ -25,7 +25,7 @@
     </div>
     <!-- END: Subheader -->
     <div class="m-content">
-        {{ Form::open([ 'method' => 'POST', 'files' => true, 'route' => [ 'user.project.store' ] ]) }}
+        {{ Form::open([ 'method' => 'PUT', 'files' => true, 'route' => [ 'user.project.update', 'id' => $project->id ] ]) }}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group m-form__group">
@@ -35,7 +35,7 @@
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
-                            <input type="text" name="name" class="form-control m-input m-input--pill" placeholder="Name">
+                            <input type="text" name="name" class="form-control m-input m-input--pill" placeholder="Name" value="{{ $project->name }}">
                             <span class="m-input-icon__icon m-input-icon__icon--left">
                                 <span>
                                     <i class="la la-edit"></i>
@@ -51,7 +51,7 @@
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <textarea class="summernote" name="description"></textarea>
+                                <textarea class="summernote" name="description">{{ $project->description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <textarea class="summernote" name="vision"></textarea>
+                                <textarea class="summernote" name="vision">{{ $project->vision }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <textarea class="summernote" name="preface"></textarea>
+                                <textarea class="summernote" name="preface">{{ $project->preface }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,11 @@
                                 <div class="m-select2 m-select2--pill">
                                     <select class="form-control m-select2" id="m_select2_3" name="productowners[]" multiple="multiple">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option
+                                                @foreach ($project->users as $productowners)
+                                                    {{ $productowners->id == $user->id && $productowners->pivot->position_id == 1 ? 'selected' : '' }}
+                                                @endforeach
+                                                value="{{ $user->id }}">
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -109,7 +113,11 @@
                                 <div class="m-select2 m-select2--pill">
                                     <select class="form-control m-select2" id="m_select2_3" name="scrummasters[]" multiple="multiple">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option
+                                                @foreach ($project->users as $scrummasters)
+                                                    {{ $scrummasters->id == $user->id && $scrummasters->pivot->position_id == 2 ? 'selected' : '' }}
+                                                @endforeach
+                                                value="{{ $user->id }}">
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -123,7 +131,11 @@
                                 <div class="m-select2 m-select2--pill">
                                     <select class="form-control m-select2" id="m_select2_3" name="techleaders[]" multiple="multiple">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option
+                                                @foreach ($project->users as $techleaders)
+                                                    {{ $techleaders->id == $user->id && $techleaders->pivot->position_id == 3 ? 'selected' : '' }}
+                                                @endforeach
+                                                value="{{ $user->id }}">
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -137,7 +149,11 @@
                                 <div class="m-select2 m-select2--pill">
                                     <select class="form-control m-select2" id="m_select2_3" name="teammembers[]" multiple="multiple">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option
+                                                @foreach ($project->users as $teammembers)
+                                                    {{ $teammembers->id == $user->id && $teammembers->pivot->position_id == 4 ? 'selected' : '' }}
+                                                @endforeach
+                                                value="{{ $user->id }}">
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -151,7 +167,11 @@
                                 <div class="m-select2 m-select2--pill">
                                     <select class="form-control m-select2" id="m_select2_3" name="stackholders[]" multiple="multiple">
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">
+                                            <option
+                                                @foreach ($project->users as $stackholders)
+                                                    {{ $stackholders->id == $user->id && $stackholders->pivot->position_id == 5 ? 'selected' : '' }}
+                                                @endforeach
+                                                value="{{ $user->id }}">
                                                 {{ $user->name }}
                                             </option>
                                         @endforeach
@@ -167,9 +187,9 @@
                             </h5>
                         </label>
                         <div class="m-input-icon">
-                            <input type="file" accept="image/*" onchange="loadFile(event)" class="form-control m-input m-input--pill" name="image" placeholder="Image">
+                            <input type="file" accept="image/*" onchange="loadFile(event)" class="form-control m-input m-input--pill" value="{{ $project->image }}" name="image" placeholder="Image">
                             <br>
-                            <img id="output" style="width: 100%;">
+                            <img src="{{ $project->image }}" id="output" style="width: 100%;">
                         </div>
                     </div>
                     <div class="form-group m-form__group">
@@ -181,14 +201,14 @@
                         <div class="m-input-icon">
                             <span class="m-switch m-switch--success">
                                 <label class="col-form-label">
-                                    <input type="checkbox" name="public" value="0">
+                                    <input type="checkbox" name="public" value="0" {{ $project->public == true ? 'checked' : '' }}>
                                     <span></span>
                                 </label>
                             </span>
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn m-btn--pill btn-accent">CREATE</button>
+                    <button type="submit" class="btn m-btn--pill btn-accent">UPDATE</button>
                     <a class="btn m-btn--pill btn-metal" href="{{ route('user.project.index') }}">CANCEL</a>
                 </div>
             </div>
