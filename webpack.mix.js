@@ -34,6 +34,10 @@ mix.copy('resources/assets/template/js/dashboard.js',
     'public/assets/js/dashboard.js');
 mix.copy('resources/assets/template/js/fullcalendar.bundle.js',
     'public/assets/js/fullcalendar.bundle.js');
+mix.copy('resources/assets/template/js/summernote.js',
+    'public/assets/js/summernote.js');
+mix.copy('resources/assets/template/js/select2.js',
+    'public/assets/js/select2.js');
 
 mix.copy('resources/assets/template/img/favicon.ico',
     'public/assets/img/favicon.ico');
