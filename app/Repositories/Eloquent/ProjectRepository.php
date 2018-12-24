@@ -33,4 +33,18 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
             })
             ->get($columns);
     }
+
+    /**
+     * Attach the project for the user.
+     *
+     * @param Project $project
+     * @param array $attachData
+     * @return void
+     */
+    public function attachPositionUser($projectId, array $attachData, $positionId)
+    {
+        $project = $this->model->find($projectId);
+        
+        return $project->users()->attach($attachData, ['position_id' => $positionId]);
+    }
 }

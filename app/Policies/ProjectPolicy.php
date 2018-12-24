@@ -30,7 +30,7 @@ class ProjectPolicy
      */
     public function create(User $user)
     {
-        return $user->role_id == 2;
+        return $user->role_id == config('fpms.is_normal_user');
     }
 
     /**
