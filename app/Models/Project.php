@@ -29,8 +29,15 @@ class Project extends Model
         'sub_project_id',
     ];
 
+    protected $appends = ['user_ids'];
+
     public function users()
     {
         return $this->belongsToMany('App\Models\User')->withTimestamps()->withPivot('position_id');
+    }
+
+    public function getUserIdsAttribute()
+    {
+        return $this->users()->pluck('user_id');
     }
 }
