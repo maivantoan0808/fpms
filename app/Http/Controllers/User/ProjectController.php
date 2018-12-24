@@ -123,9 +123,15 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = $this->project->with('users')->find($id);
-        $users = $this->user->getNormalUser(['id', 'name']);
+        if (\Auth::user()->can('update', $project)) {
+            $users = $this->user->getNormalUser(['id', 'name']);
 
-        return view('project.edit', compact('project', 'users', 'members'));
+            return view('project.edit', compact('project', 'users', 'members'));
+        } else {
+            Toastr::error('You dont have permission', 'Error');
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -138,52 +144,58 @@ class ProjectController extends Controller
     public function update(ProjectRequestUpdate $request, $id)
     {
         $project = $this->project->with('users')->find($id);
-        if (isset($request->public)) {
-            $public = true;
-        } else {
-            $public = false;
-        }
-        $slug = str_slug($request->name);
-        $image = $request->file('image');
+        if (\Auth::user()->can('update', $project)) {
+            if (isset($request->public)) {
+                $public = true;
+            } else {
+                $public = false;
+            }
+            $slug = str_slug($request->name);
+            $image = $request->file('image');
 
-        if (isset($image)) {
-            $currentDate = Carbon::now()->toDateString();
-            $imageName = $slug. '-'. $currentDate. '-'. uniqid(). '.'. $image->getClientOriginalExtension();
+            if (isset($image)) {
+                $currentDate = Carbon::now()->toDateString();
+                $imageName = $slug. '-'. $currentDate. '-'. uniqid(). '.'. $image->getClientOriginalExtension();
 
-            if (!Storage::disk('public')->exists(config('fpms.project_img_dir'))) {
-                Storage::disk('public')->makeDirectory(config('fpms.project_img_dir'));
+                if (!Storage::disk('public')->exists(config('fpms.project_img_dir'))) {
+                    Storage::disk('public')->makeDirectory(config('fpms.project_img_dir'));
+                }
+
+                $postImage = Image::make($image)->resize(900, 600)->save();
+                Storage::disk('public')->put(config('fpms.project_img_dir').$imageName, $postImage);
+                $imagePath = Storage::disk('public')->url(config('fpms.project_img_dir') . $imageName);
+
+                $arrImagePath = explode('/', $project->image);
+                $oldImage = end($arrImagePath);
+                if (Storage::disk('public')->exists(config('fpms.project_img_dir').$oldImage)) {
+                    Storage::disk('public')->delete(config('fpms.project_img_dir').$oldImage);
+                }
+            } else {
+                $imagePath = $project->image;
             }
 
-            $postImage = Image::make($image)->resize(900, 600)->save();
-            Storage::disk('public')->put(config('fpms.project_img_dir').$imageName, $postImage);
-            $imagePath = Storage::disk('public')->url(config('fpms.project_img_dir') . $imageName);
+            $data = array_merge($request->all(), [
+                'image' => $imagePath,
+                'public' => $public,
+            ]);
+            
+            $project = $this->project->update($id, $data);
 
-            $arrImagePath = explode('/', $project->image);
-            $oldImage = end($arrImagePath);
-            if (Storage::disk('public')->exists(config('fpms.project_img_dir').$oldImage)) {
-                Storage::disk('public')->delete(config('fpms.project_img_dir').$oldImage);
-            }
+            $project->users()->detach();
+            $project->users()->attach($request->productowners, ['position_id' => 1]);
+            $project->users()->attach($request->scrummasters, ['position_id' => 2]);
+            $project->users()->attach($request->techleaders, ['position_id' => 3]);
+            $project->users()->attach($request->teammembers, ['position_id' => 4]);
+            $project->users()->attach($request->stackholders, ['position_id' => 5]);
+
+            Toastr::success('Project Successfully Updated', 'Success');
+            
+            return redirect()->route('user.project.index');
         } else {
-            $imagePath = $project->image;
+            Toastr::error('You dont have permission', 'Error');
+
+            return redirect()->back();
         }
-
-        $data = array_merge($request->all(), [
-            'image' => $imagePath,
-            'public' => $public,
-        ]);
-        
-        $project = $this->project->update($id, $data);
-
-        $project->users()->detach();
-        $project->users()->attach($request->productowners, ['position_id' => 1]);
-        $project->users()->attach($request->scrummasters, ['position_id' => 2]);
-        $project->users()->attach($request->techleaders, ['position_id' => 3]);
-        $project->users()->attach($request->teammembers, ['position_id' => 4]);
-        $project->users()->attach($request->stackholders, ['position_id' => 5]);
-
-        Toastr::success('Project Successfully Updated', 'Success');
-        
-        return redirect()->route('user.project.index');
     }
 
     /**
