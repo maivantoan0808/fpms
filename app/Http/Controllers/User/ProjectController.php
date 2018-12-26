@@ -9,10 +9,9 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Http\Requests\ProjectRequestStore;
 use App\Http\Requests\ProjectRequestUpdate;
 use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-use Carbon\Carbon;
 use Illuminate\Http\File;
+use App\Helper\FileHelper;
 
 class ProjectController extends Controller
 {
@@ -57,7 +56,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\ProjectRequest  $request
+     * @param  \App\Http\Requests\ProjectRequestStore  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProjectRequestStore $request)
@@ -72,15 +71,14 @@ class ProjectController extends Controller
         $image = $request->file('image');
 
         if (isset($image)) {
-            $currentDate = Carbon::now()->toDateString();
-            $imageName = $slug. '-'. $currentDate. '-'. uniqid(). '.'. $image->getClientOriginalExtension();
+            $imageName = FileHelper::renameImage($slug, $image);
 
-            if (!Storage::disk('public')->exists(config('fpms.project_img_dir'))) {
-                Storage::disk('public')->makeDirectory(config('fpms.project_img_dir'));
-            }
+            FileHelper::makeFolder(config('fpms.project_img'));
+
             $postImage = Image::make($image)->resize(900, 600)->save();
-            Storage::disk('public')->put(config('fpms.project_img_dir').$imageName, $postImage);
-            $imagePath = Storage::disk('public')->url(config('fpms.project_img_dir') . $imageName);
+            FileHelper::saveImage(config('fpms.project_img_dir') . $imageName, $postImage);
+
+            $imagePath = FileHelper::getPath(config('fpms.project_img_dir'), $imageName);
         } else {
             $imagePath = 'default.png';
         }
@@ -89,14 +87,34 @@ class ProjectController extends Controller
             'image' => $imagePath,
             'public' => $public,
         ]);
-        
+
         $project = $this->project->store($data);
         
-        $project->users()->attach($request->productowners, ['position_id' => 1]);
-        $project->users()->attach($request->scrummasters, ['position_id' => 2]);
-        $project->users()->attach($request->techleaders, ['position_id' => 3]);
-        $project->users()->attach($request->teammembers, ['position_id' => 4]);
-        $project->users()->attach($request->stackholders, ['position_id' => 5]);
+        $this->project->attachPositionUser(
+            $project->id,
+            $request->productowners,
+            config('fpms.project_position.product_owner')
+        );
+        $this->project->attachPositionUser(
+            $project->id,
+            $request->scrummasters,
+            config('fpms.project_position.scrum_master')
+        );
+        $this->project->attachPositionUser(
+            $project->id,
+            $request->techleaders,
+            config('fpms.project_position.tech_leader')
+        );
+        $this->project->attachPositionUser(
+            $project->id,
+            $request->teammembers,
+            config('fpms.project_position.team_member')
+        );
+        $this->project->attachPositionUser(
+            $project->id,
+            $request->stackholders,
+            config('fpms.project_position.stackholder')
+        );
 
         Toastr::success('Project Successfully Created', 'Success');
         
@@ -154,22 +172,17 @@ class ProjectController extends Controller
             $image = $request->file('image');
 
             if (isset($image)) {
-                $currentDate = Carbon::now()->toDateString();
-                $imageName = $slug. '-'. $currentDate. '-'. uniqid(). '.'. $image->getClientOriginalExtension();
+                $imageName = FileHelper::renameImage($slug, $image);
 
-                if (!Storage::disk('public')->exists(config('fpms.project_img_dir'))) {
-                    Storage::disk('public')->makeDirectory(config('fpms.project_img_dir'));
-                }
+                FileHelper::makeFolder(config('fpms.project_img'));
 
                 $postImage = Image::make($image)->resize(900, 600)->save();
-                Storage::disk('public')->put(config('fpms.project_img_dir').$imageName, $postImage);
-                $imagePath = Storage::disk('public')->url(config('fpms.project_img_dir') . $imageName);
+                FileHelper::saveImage(config('fpms.project_img_dir') . $imageName, $postImage);
+                $imagePath = FileHelper::getPath(config('fpms.project_img_dir'), $imageName);
 
                 $arrImagePath = explode('/', $project->image);
                 $oldImage = end($arrImagePath);
-                if (Storage::disk('public')->exists(config('fpms.project_img_dir').$oldImage)) {
-                    Storage::disk('public')->delete(config('fpms.project_img_dir').$oldImage);
-                }
+                FileHelper::deleteOldFile(config('fpms.project_img_dir'), $oldImage);
             } else {
                 $imagePath = $project->image;
             }
@@ -182,11 +195,31 @@ class ProjectController extends Controller
             $project = $this->project->update($id, $data);
 
             $project->users()->detach();
-            $project->users()->attach($request->productowners, ['position_id' => 1]);
-            $project->users()->attach($request->scrummasters, ['position_id' => 2]);
-            $project->users()->attach($request->techleaders, ['position_id' => 3]);
-            $project->users()->attach($request->teammembers, ['position_id' => 4]);
-            $project->users()->attach($request->stackholders, ['position_id' => 5]);
+            $this->project->attachPositionUser(
+                $project->id,
+                $request->productowners,
+                config('fpms.project_position.product_owner')
+            );
+            $this->project->attachPositionUser(
+                $project->id,
+                $request->scrummasters,
+                config('fpms.project_position.scrum_master')
+            );
+            $this->project->attachPositionUser(
+                $project->id,
+                $request->techleaders,
+                config('fpms.project_position.tech_leader')
+            );
+            $this->project->attachPositionUser(
+                $project->id,
+                $request->teammembers,
+                config('fpms.project_position.team_member')
+            );
+            $this->project->attachPositionUser(
+                $project->id,
+                $request->stackholders,
+                config('fpms.project_position.stackholder')
+            );
 
             Toastr::success('Project Successfully Updated', 'Success');
             
