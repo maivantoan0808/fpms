@@ -40,4 +40,9 @@ class Project extends Model
     {
         return $this->users()->pluck('user_id');
     }
+
+    public function releases()
+    {
+        return $this->hasMany('App\Models\Release');
+    }
 }
