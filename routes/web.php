@@ -38,4 +38,5 @@ Route::group([
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::resource('project', 'ProjectController');
+    Route::resource('release', 'ReleaseController');
 });
