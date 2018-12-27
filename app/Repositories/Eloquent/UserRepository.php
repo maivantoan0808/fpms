@@ -37,7 +37,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function getUsersOfProject($projectId, $columns = ['*'])
     {
-        return $this->model->withCount('projects')
+        return $this->model->with('projects')
             ->whereHas('projects', function ($q) use ($projectId) {
                 $q->where('projects.id', $projectId);
             })

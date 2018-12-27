@@ -47,4 +47,17 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         
         return $project->users()->attach($attachData, ['position_id' => $positionId]);
     }
+
+    /**
+     * List Projects User Doing
+     * @param int $userId
+     * @param array  $columns
+     * @return mixed
+     */
+    public function getUsersOfProjectWithPosition($projectId, $positionId)
+    {
+        $project = $this->model->find($projectId);
+
+        return $project->users()->wherePivot('position_id', $positionId)->get(['users.id', 'name']);
+    }
 }
