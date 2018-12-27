@@ -12,6 +12,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\File;
 use App\Helper\FileHelper;
+use App\Jobs\MakeFolderProject;
 
 class ProjectController extends Controller
 {
@@ -49,7 +50,7 @@ class ProjectController extends Controller
     public function create()
     {
         $users = $this->user->getNormalUser(['id', 'name']);
-        
+
         return view('project.create', compact('users'));
     }
 
@@ -90,6 +91,8 @@ class ProjectController extends Controller
 
         $project = $this->project->store($data);
         
+        MakeFolderProject::dispatch($project);
+
         $this->project->attachPositionUser(
             $project->id,
             $request->productowners,
@@ -129,7 +132,31 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = $this->project->find($id);
+
+        $productowners = $this->project->getUsersOfProjectWithPosition(
+            $id,
+            config('fpms.project_position.product_owner')
+        );
+        $scrummasters = $this->project->getUsersOfProjectWithPosition(
+            $id,
+            config('fpms.project_position.scrum_master')
+        );
+        $techleaders = $this->project->getUsersOfProjectWithPosition(
+            $id,
+            config('fpms.project_position.tech_leader')
+        );
+        $teammembers = $this->project->getUsersOfProjectWithPosition(
+            $id,
+            config('fpms.project_position.team_member')
+        );
+        $stackholders = $this->project->getUsersOfProjectWithPosition(
+            $id,
+            config('fpms.project_position.stackholder')
+        );
+        $data = compact('project', 'productowners', 'scrummasters', 'techleaders', 'teammembers', 'stackholders');
+
+        return view('project.show', $data);
     }
 
     /**
