@@ -17,6 +17,7 @@ use App\Jobs\MakeFolderProject;
 class ProjectController extends Controller
 {
     protected $project;
+    protected $user;
 
     public function __construct(ProjectRepositoryInterface $project, UserRepositoryInterface $user)
     {
@@ -132,7 +133,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = $this->project->find($id);
+        $project = $this->project->findWithRelations($id, 'documents');
 
         $productowners = $this->project->getUsersOfProjectWithPosition(
             $id,
