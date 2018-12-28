@@ -45,4 +45,14 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Release');
     }
+
+    public function documentVersions()
+    {
+        return $this->hasMany('App\Models\DocumentVersion');
+    }
+
+    public function documents()
+    {
+        return $this->hasManyThrough('App\Models\Document', 'App\Models\DocumentVersion');
+    }
 }

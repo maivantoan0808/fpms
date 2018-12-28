@@ -40,3 +40,5 @@ Route::group([
     Route::resource('project', 'ProjectController');
     Route::resource('release', 'ReleaseController');
 });
+
+Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');

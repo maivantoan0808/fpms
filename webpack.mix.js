@@ -38,6 +38,8 @@ mix.copy('resources/assets/template/js/summernote.js',
     'public/assets/js/summernote.js');
 mix.copy('resources/assets/template/js/select2.js',
     'public/assets/js/select2.js');
+mix.copy('resources/assets/template/js/treeview.js',
+    'public/assets/js/treeview.js');
 
 mix.copy('resources/assets/template/img/favicon.ico',
     'public/assets/img/favicon.ico');
@@ -45,4 +47,10 @@ mix.copy('resources/assets/template/img/bg-1.jpg',
     'public/assets/auth/img/bg-1.jpg');
 mix.copy('resources/assets/template/img/logo-1.png',
     'public/assets/auth/img/logo-1.png');
+mix.copy('resources/assets/template/img/32px.png',
+    'public/assets/img/32px.png');
+mix.copy('resources/assets/template/img/40px.png',
+    'public/assets/img/40px.png');
+mix.copy('resources/assets/template/img/throbber.gif',
+    'public/assets/img/throbber.gif');
 
