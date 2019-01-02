@@ -16,4 +16,8 @@ return [
         'stackholder' => 5,
     ],
 
+    'status' => [
+        'close' => 1,
+        'open' => 0,
+    ],
 ];

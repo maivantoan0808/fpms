@@ -39,6 +39,9 @@ Route::group([
 
     Route::resource('project', 'ProjectController');
     Route::resource('release', 'ReleaseController');
+    Route::resource('sprint', 'SprintController');
+    Route::get('/sprint/getRelease/{id}', 'SprintController@ajax');
+    
     Route::post('/document-version/store/{id}', 'DocumentVersionController@store')->name('document_version.store');
 });
 

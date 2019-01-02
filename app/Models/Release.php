@@ -32,4 +32,9 @@ class Release extends Model
     {
         return $this->belongsTo('App\Models\Project');
     }
+
+    public function sprints()
+    {
+        return $this->hasMany('App\Models\Sprint', 'release_plan_id');
+    }
 }

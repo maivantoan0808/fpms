@@ -13,6 +13,8 @@ use App\Repositories\Interfaces\DocumentVersionRepositoryInterface;
 use App\Repositories\Eloquent\DocumentVersionRepository;
 use App\Repositories\Interfaces\DocumentRepositoryInterface;
 use App\Repositories\Eloquent\DocumentRepository;
+use App\Repositories\Eloquent\SprintRepository;
+use App\Repositories\Interfaces\SprintRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -52,6 +54,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DocumentRepositoryInterface::class,
             DocumentRepository::class
+        );
+        $this->app->bind(
+            SprintRepositoryInterface::class,
+            SprintRepository::class
         );
     }
 }

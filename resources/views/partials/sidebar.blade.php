@@ -35,6 +35,18 @@
                         Projects
                     </span>
                 </a>
+                <a href="{{ route('user.release.index') }}" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-layers"></i>
+                    <span class="m-menu__link-text">
+                        Release Plan
+                    </span>
+                </a>
+                <a href="{{ route('user.sprint.index') }}" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-layers"></i>
+                    <span class="m-menu__link-text">
+                        Sprint
+                    </span>
+                </a>
             </li>
             <li class="m-menu__section">
                 <h4 class="m-menu__section-text">
