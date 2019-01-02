@@ -9,6 +9,10 @@ use App\Repositories\Interfaces\ReleaseRepositoryInterface;
 use App\Repositories\Eloquent\ReleaseRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Eloquent\UserRepository;
+use App\Repositories\Interfaces\DocumentVersionRepositoryInterface;
+use App\Repositories\Eloquent\DocumentVersionRepository;
+use App\Repositories\Interfaces\DocumentRepositoryInterface;
+use App\Repositories\Eloquent\DocumentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -40,6 +44,14 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ReleaseRepositoryInterface::class,
             ReleaseRepository::class
+        );
+        $this->app->bind(
+            DocumentVersionRepositoryInterface::class,
+            DocumentVersionRepository::class
+        );
+        $this->app->bind(
+            DocumentRepositoryInterface::class,
+            DocumentRepository::class
         );
     }
 }

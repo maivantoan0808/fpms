@@ -13,6 +13,16 @@ class DocumentVersion extends Model
      */
     protected $table = 'document_versions';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'project_id',
+    ];
+
     public function project()
     {
         return $this->belongsTo('App\Models\Project');

@@ -39,6 +39,7 @@ Route::group([
 
     Route::resource('project', 'ProjectController');
     Route::resource('release', 'ReleaseController');
+    Route::post('/document-version/store/{id}', 'DocumentVersionController@store')->name('document_version.store');
 });
 
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');

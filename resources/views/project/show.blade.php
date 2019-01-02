@@ -13,7 +13,7 @@
                     <i class="fa fa-plus"></i>
                     Create Document Version
                 </button>
-                {{-- @include('document_version.create') --}}
+                @include('document_version.create')
             </div>
             <div>
                 <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
