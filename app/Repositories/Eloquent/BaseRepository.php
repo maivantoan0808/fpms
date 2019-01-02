@@ -86,12 +86,14 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * Delete a model
      * @param $id
-     * @return mixed
+     * @return mixeds
      * @throws \Exception
      */
     public function delete($id)
     {
-        return $this->find($id)->delete();
+        $model = $this->model->findOrFail($id);
+
+        return $model->delete();
     }
 
     /**

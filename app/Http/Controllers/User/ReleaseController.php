@@ -73,7 +73,7 @@ class ReleaseController extends Controller
         ];
         $release = $this->release->store($data);
 
-        Toastr::success('Release Successfully Created', 'Success');
+        Toastr::success(__('created'), 'Success');
         
         return redirect()->route('user.release.index');
     }
@@ -86,7 +86,7 @@ class ReleaseController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -98,27 +98,32 @@ class ReleaseController extends Controller
     public function edit($id)
     {
         $release = $this->release->with('project')->find($id);
-        if (\Auth::user()->can('update', $release)) {
-            $users = $this->user->getNormalUser(['id', 'name']);
-
-            return view('release.edit', compact('release', 'users', 'members'));
-        } else {
-            Toastr::error('You dont have permission', 'Error');
-
-            return redirect()->back();
-        }
+        
+        return view('release.edit', compact('release'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\ProjectRequestUpdate $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReleaseRequestStore $request, $id)
     {
-        //
+        $release = $this->release->find($id);
+        $date = Carbon::parse($request->release_date);
+        $data = [
+            'project_id' => 1,
+            'release_date' => $date,
+            'goal' => $request->goal,
+            'note' => $request->note,
+            'version' => $request->version,
+        ];
+        $release = $this->release->update($id, $data);
+
+        Toastr::success(__('edited'), 'Success');
+        
+        return redirect()->route('user.release.index');
     }
 
     /**
@@ -129,6 +134,10 @@ class ReleaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $release = $this->release->delete($id);
+
+        Toastr::success(__('deleted'), 'Success');
+
+        return redirect()->route('user.release.index');
     }
 }

@@ -55,13 +55,9 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="m-portlet__nav-item">
-                                    <a href="{{ route('user.release.destroy', $release->id) }}" class="btn m-btn--pill btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                        <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </a>
-                                </li>
+                                {{ Form::open([ 'method' => 'DELETE', 'route' => [ 'user.release.destroy', $release->id], 'class' => 'm-portlet__nav-item']) }}
+                                    {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn m-btn--pill btn-danger'] )  }}
+                                {{ Form::close() }}
                             </ul>
                         </div>
                     </div>
