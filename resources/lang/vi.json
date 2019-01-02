@@ -1,5 +1,23 @@
 {
 	"created" : "Đã tạo thành công",
     "edited" : "Đã sửa thành công",
-    "deleted" : "Đã xóa thành công"
+    "deleted" : "Đã xóa thành công",
+    "create new sprint" : "Tạo sprint mới",
+    "sprint" : "Sprint",
+    "description" : "Mô tả",
+    "status" : "Trạng thái",
+    "CREATE" : "THÊM",
+    "CANCEL" : "HỦY",
+    "UPDATE" : "SỬA",
+    "Open" : "Mở",
+    "Close" : "Đóng",
+    "quantity sprint" : "Sprint của các dự án",
+    "Detail" : "Chi tiết",
+    "Create New Release Plan" : "Tạo Release mới",
+    "Project" : "Dự án",
+    "Release Plan Date" : "Ngày Release",
+    "Goal" : "Mục tiêu",
+    "Note" : "Chú thích",
+    "Version": "Phiên bản",
+    "Release Plan" : "Release Plan"
 }

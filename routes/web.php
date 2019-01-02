@@ -47,5 +47,5 @@ Route::group([
     Route::get('/project/{id}/create-document', 'DocumentController@create')->name('document.create');
     Route::post('/project/{id}/store-document', 'DocumentController@store')->name('document.store');
 });
-
+Route::get('/sprint/getRelease/{id}', 'User\SprintController@ajax');
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');
