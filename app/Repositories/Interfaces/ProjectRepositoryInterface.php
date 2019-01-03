@@ -9,5 +9,4 @@ interface ProjectRepositoryInterface extends BaseRepositoryInterface
     public function getProjectsByUser($userId, $columns = ['*']);
     public function attachPositionUser($projectId, array $attachData, $positionId);
     public function getUsersOfProjectWithPosition($projectId, $positionId);
-    public function findWithRelations($id, $relations = []);
 }

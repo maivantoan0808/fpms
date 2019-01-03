@@ -134,7 +134,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = $this->project->findWithRelations($id, 'documents');
-
+        
         $productowners = $this->project->getUsersOfProjectWithPosition(
             $id,
             config('fpms.project_position.product_owner')

@@ -9,11 +9,22 @@
                 <h3 class="m-subheader__title ">
                     {{ $project->name }}
                 </h3>
-                <button type="button" class="btn m-btn--pill btn-primary" data-toggle="modal" data-target="#m_modal_1">
-                    <i class="fa fa-plus"></i>
-                    Create Document Version
-                </button>
-                @include('document_version.create')
+                @if($project->documents()->count() == 0)
+                    <form method="POST" action="{{ route('user.document_default.store', $project->id) }}">
+                        @csrf
+                        <button type="submit" class="btn m-btn--pill btn-primary">
+                            <i class="fa fa-plus"></i>
+                            Make Default Directory
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('user.document.create', $project->id) }}">
+                        <button type="button" class="btn m-btn--pill btn-primary">
+                            <i class="fa fa-plus"></i>
+                            Create Document
+                        </button>
+                    </a>
+                @endif
             </div>
             <div>
                 <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
@@ -92,7 +103,7 @@
 
 @push('js')
 <script>
-    
+    var id = {!! $project->id !!};
 </script>
 <script src="{{ asset('assets/js/treeview.js') }}"></script>
 @endpush

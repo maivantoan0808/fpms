@@ -1,5 +1,4 @@
 var Treeview = function () {
-
     var demo4 = function() {
         $("#m_tree_4").jstree({
             "core" : {
@@ -9,7 +8,7 @@ var Treeview = function () {
                 // so that create works
                 "check_callback" : true,
                 'data': {
-                    "url" : '/getTree/63',
+                    "url" : "/getTree/" + id,
                     "dataType" : "json"
                 }
             },
@@ -40,8 +39,8 @@ var Treeview = function () {
                 }
             },
             "state" : { "key" : "demo2" },
-            "plugins" : [ "contextmenu", "state", "types" ]
-        });    
+            "plugins" : [ "state", "types" ]
+        });
     }
 
     return {
