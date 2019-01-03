@@ -60,13 +60,4 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
 
         return $project->users()->wherePivot('position_id', $positionId)->get(['users.id', 'name']);
     }
-
-    /**
-     * @param string $id
-     * @return mixed
-     */
-    public function findWithRelations($id, $relations = [])
-    {
-        return $this->model->with($relations)->findOrFail($id);
-    }
 }

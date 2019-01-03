@@ -43,6 +43,9 @@ Route::group([
     Route::get('/sprint/getRelease/{id}', 'SprintController@ajax');
     
     Route::post('/document-version/store/{id}', 'DocumentVersionController@store')->name('document_version.store');
+    Route::post('/project/{id}/store-document-default', 'DocumentController@storeDefault')->name('document_default.store');
+    Route::get('/project/{id}/create-document', 'DocumentController@create')->name('document.create');
+    Route::post('/project/{id}/store-document', 'DocumentController@store')->name('document.store');
 });
 
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');

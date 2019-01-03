@@ -37,8 +37,8 @@ class DocumentVersionRequest extends FormRequest
     {
         return [
             'name.required' => __('Name Document Version is required'),
-            'name.min'  => __('Name must be min 3 characters'),
-            'name.unique'  => __('Name has been taken'),
+            'name.min' => __('Name must be min 3 characters'),
+            'name.unique' => __('Name has been taken'),
         ];
     }
 }

@@ -40,6 +40,8 @@ mix.copy('resources/assets/template/js/select2.js',
     'public/assets/js/select2.js');
 mix.copy('resources/assets/template/js/treeview.js',
     'public/assets/js/treeview.js');
+mix.copy('resources/assets/js/document.js',
+    'public/assets/js/document.js');
 
 mix.copy('resources/assets/template/img/favicon.ico',
     'public/assets/img/favicon.ico');

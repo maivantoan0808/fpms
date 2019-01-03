@@ -13,6 +13,22 @@ class Document extends Model
      */
     protected $table = 'documents';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'document_version_id',
+        'name',
+        'text',
+        'document_parent',
+        'document_type',
+        'icon',
+        'document_ext',
+        'document_link',
+    ];
+
     public function documentVersion()
     {
         return $this->belongsTo('App\Models\DocumentVersion');

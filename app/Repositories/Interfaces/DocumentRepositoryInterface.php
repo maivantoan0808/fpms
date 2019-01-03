@@ -6,5 +6,5 @@ use App\Repositories\Interfaces\BaseRepositoryInterface;
 
 interface DocumentRepositoryInterface extends BaseRepositoryInterface
 {
-    //
+    public function getDirInProject($projectId);
 }

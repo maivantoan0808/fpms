@@ -20,4 +20,16 @@ return [
         'close' => 1,
         'open' => 0,
     ],
+
+    'icon' => [
+        'folder' => 'fa fa-folder m--font-brand',
+        'word' => 'fa fa-file-word-o m--font-brand',
+        'excel' => 'fa fa-file-excel-o m--font-brand',
+        'powerpoint' => 'fa fa-file-powerpoint-o m--font-brand',
+        'pdf' => 'fa fa-file-pdf-o m--font-brand',
+        'database' => 'fa fa-database m--font-brand',
+        'photo' => 'fa fa-file-photo-o m--font-brand',
+        'other' => 'fa fa-file  m--font-brand',
+    ],
+    
 ];

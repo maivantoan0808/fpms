@@ -14,4 +14,5 @@ interface BaseRepositoryInterface
     public function delete($id);
     public function page($number, string $orderBy = 'created_at', string $sortBy = 'desc');
     public function with($relations);
+    public function findWithRelations($id, $relations = []);
 }
