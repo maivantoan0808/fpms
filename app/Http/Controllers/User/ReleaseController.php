@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\ReleaseRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\ProjectRepositoryInterface;
 use App\Http\Requests\ReleaseRequestStore;
 use App\Http\Requests\ProjectRequestUpdate;
 use Brian2694\Toastr\Facades\Toastr;
@@ -18,10 +19,11 @@ class ReleaseController extends Controller
 {
     protected $release;
 
-    public function __construct(ReleaseRepositoryInterface $release, UserRepositoryInterface $user)
+    public function __construct(ReleaseRepositoryInterface $release, UserRepositoryInterface $user, ProjectRepositoryInterface $project)
     {
         $this->release = $release;
         $this->user = $user;
+        $this->project = $project;
     }
 
     /**
@@ -31,14 +33,7 @@ class ReleaseController extends Controller
      */
     public function index()
     {
-        $releases = $this->release->getReleasePlansByProject(1, [
-            'id',
-            'project_id',
-            'release_date',
-            'goal',
-            'note',
-            'version',
-        ]);
+        $releases = $this->release->all();
 
         return view('release.index', compact('releases'));
     }
@@ -51,8 +46,9 @@ class ReleaseController extends Controller
     public function create()
     {
         $users = $this->user->getNormalUser(['id', 'name']);
+        $project = $this->project->all();
         
-        return view('release.create', compact('users'));
+        return view('release.create', compact('users', 'project'));
     }
 
     /**
@@ -65,7 +61,7 @@ class ReleaseController extends Controller
     {
         $date = Carbon::parse($request->release_date);
         $data = [
-            'project_id' => 1,
+            'project_id' => $request->project,
             'release_date' => $date,
             'goal' => $request->goal,
             'note' => $request->note,
@@ -86,7 +82,7 @@ class ReleaseController extends Controller
      */
     public function show($id)
     {
-
+        
     }
 
     /**
@@ -98,8 +94,9 @@ class ReleaseController extends Controller
     public function edit($id)
     {
         $release = $this->release->with('project')->find($id);
+        $project = $this->project->all();
         
-        return view('release.edit', compact('release'));
+        return view('release.edit', compact('release', 'project'));
     }
 
     /**
@@ -113,7 +110,7 @@ class ReleaseController extends Controller
         $release = $this->release->find($id);
         $date = Carbon::parse($request->release_date);
         $data = [
-            'project_id' => 1,
+            'project_id' => $request->project,
             'release_date' => $date,
             'goal' => $request->goal,
             'note' => $request->note,

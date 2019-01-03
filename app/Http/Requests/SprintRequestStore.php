@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReleaseRequestStore extends FormRequest
+class SprintRequestStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class ReleaseRequestStore extends FormRequest
     public function rules()
     {
         return [
-            'project' => 'bail|required',
-            'version' => 'bail|required',
-            'goal' => 'bail|required',
-            'note' => 'bail|required',
-            'release_date' => 'bail|required',
+            'sprint' => 'bail|required',
+            'description' => 'bail|required',
+            'status' => 'bail|required',
         ];
     }
 }

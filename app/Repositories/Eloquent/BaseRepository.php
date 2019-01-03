@@ -68,6 +68,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->findOrFail($id);
     }
 
+    public function where($id, $col)
+    {
+        return $this->model->where($id, $col)->get();
+    }
+
     /**
      * Save input data
      * @param $model
