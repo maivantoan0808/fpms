@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    {{ __('create new sprint') }}
+                    {{ __('Update New Sprint') }}
                 </h3>
             </div>
             <div>
@@ -25,7 +25,7 @@
     </div>
     <!-- END: Subheader -->
     <div class="m-content">
-        {{ Form::open([ 'method' => 'POST', 'files' => true, 'route' => [ 'user.sprint.store' ] ]) }}
+        {{ Form::open([ 'method' => 'PUT', 'files' => true, 'route' => [ 'user.sprint.update', $sprint->id]]) }}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group m-form__group">
@@ -35,7 +35,7 @@
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
-                            {{ Form::text('sprint', null, ['class' => 'form-control m-input m-input--pill', 'placeholder' => __('sprint')]) }}
+                            {{ Form::text('sprint', $sprint->sprint, ['class' => 'form-control m-input m-input--pill', 'placeholder' => __('sprint')]) }}
                             <span class="m-input-icon__icon m-input-icon__icon--left">
                                 <span>
                                     <i class="la la-edit"></i>
@@ -49,7 +49,7 @@
                                 {{ __('Project') }}
                             </h5>
                         </label>
-                        {!! Form::select('project', $projects->pluck('name', 'id'), null, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_1', 'tabindex' => -1, 'aria-hidden' => true]) !!}
+                        {!! Form::select('project', $projects->pluck('name', 'id'), $sprint->release->project->id, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_1', 'tabindex' => -1, 'aria-hidden' => true]) !!}
                     </div>
                     <div class="m--space-10"></div>
                     <div class="m-select2 m-select2--pill">
@@ -58,7 +58,7 @@
                                 {{ __('Release Plan') }}
                             </h5>
                         </label>
-                        {!! Form::select('release', $releases->pluck('release_date', 'id'), $projects->first()->releases->first()->id, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_2', 'required' => true]) !!}
+                        {!! Form::select('release', $releases->pluck('release_date', 'id'), $sprint->release->id, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_2', 'required' => true]) !!}
                     </div>
                     <div class="m--space-10"></div>
                     <div class="form-group m-form__group">
@@ -69,7 +69,7 @@
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                {{ Form::textarea('description', null, ['class' => 'summernote']) }}
+                                {{ Form::textarea('description', $sprint->description, ['class' => 'summernote']) }}
                             </div>
                         </div>
                     </div>
@@ -79,11 +79,11 @@
                                 {{ __('status') }}
                             </h5>
                         </label>
-                        {!! Form::select('status', [0 => __('Open'), 1 => __('Close')], null, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_3']) !!}
+                        {!! Form::select('status', [0 => 'Open', 1 => 'Close'], $sprint->status, ['class' => 'form-control m-select2', 'id' => 'm_select2_12_3']) !!}
                     </div>
                     <div class="m--space-10"></div>
-                    {!! Form::submit( __('CREATE'), ['class' => 'btn m-btn--pill btn-accent']) !!}
-                    <a class="btn m-btn--pill btn-metal" href="{{ route('user.sprint.index') }}">{{ __('CANCEL') }}</a>
+                    {!! Form::submit( __('UPDATE'), ['class' => 'btn m-btn--pill btn-accent']) !!}
+                    <a class="btn m-btn--pill btn-metal" href="{{ route('user.sprint.index') }}">{{ __('CANCEL')}}</a>
                 </div>
             </div>
         {!! Form::close() !!}
@@ -99,9 +99,12 @@
     $(document).ready(function() {
         $('#m_select2_12_1').change(function() {
             var id = $(this).val();
-            $.get("getRelease/" + id,function(data) {
-                console.log(data);
-                $('#m_select2_12_2').html(data);
+            $.ajax({
+                url: '/sprint/getRelease/' + id,
+                type: 'GET',
+            })
+            .done(function(data) {
+               $('#m_select2_12_2').html(data); 
             });
         });
     });

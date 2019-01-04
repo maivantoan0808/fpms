@@ -7,7 +7,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    Create New Project
+                    {{ __('Create New Project') }}
                 </h3>
             </div>
             <div>
@@ -31,7 +31,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Project Name
+                                {{ __('Project Name') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -46,7 +46,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Description
+                                {{ __('description') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -58,7 +58,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Vision
+                                {{ __('Vision') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -70,7 +70,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Preface
+                                {{ __('Preface') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -85,11 +85,11 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-12 col-md-12 col-sm-12">
                                 <h5>
-                                    Members
+                                    {{ __('Members') }}
                                 </h5>
                             </label>
                             <label>
-                                Product Owner
+                                {{ __('Product Owner') }}
                             </label>
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="m-select2 m-select2--pill">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <label>
-                                Scrum Master
+                                {{ __('Scrum Master') }}
                             </label>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
                                 <div class="m-select2 m-select2--pill">
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <label>
-                                Tech Leader
+                                {{ __('Tech Leader') }}
                             </label>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
                                 <div class="m-select2 m-select2--pill">
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <label>
-                                Team Member
+                                {{ __('Team Member') }}
                             </label>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
                                 <div class="m-select2 m-select2--pill">
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                             <label>
-                                Stackholder
+                                {{ __('Stackholder') }}
                             </label>
                             <div class="col-lg-12 col-md-12 col-sm-12 ">
                                 <div class="m-select2 m-select2--pill">
@@ -163,7 +163,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Project Image
+                                {{ __('Project Image') }}
                             </h5>
                         </label>
                         <div class="m-input-icon">
@@ -175,7 +175,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Public
+                                {{ __('Public') }}
                             </h5>
                         </label>
                         <div class="m-input-icon">
@@ -188,8 +188,8 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn m-btn--pill btn-accent">CREATE</button>
-                    <a class="btn m-btn--pill btn-metal" href="{{ route('user.project.index') }}">CANCEL</a>
+                    <button type="submit" class="btn m-btn--pill btn-accent">{{ __('CREATE') }}</button>
+                    <a class="btn m-btn--pill btn-metal" href="{{ route('user.project.index') }}">{{ __('CANCEL') }}</a>
                 </div>
             </div>
         {!! Form::close() !!}

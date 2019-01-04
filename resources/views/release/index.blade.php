@@ -7,12 +7,12 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title ">
-                    {{ __('Your Projects') }} ({{ $projects->count() }})
+                    {{ __('quantity sprint') }} ({{ $releases->count() }})
                 </h3>
-                <a href="{{ route('user.project.create') }}">
+                <a href="{{ route('user.release.create') }}">
                     <button class="btn m-btn--pill btn-primary">
                         <i class="fa fa-plus"></i>
-                        {{ __('Create New Project') }}
+                        {{ __('Create New Release Plan') }}
                     </button>
                 </a>
             </div>
@@ -32,16 +32,17 @@
     <!-- END: Subheader -->
     <div class="m-content">
         <div class="row">
-            @foreach($projects as $project)
+            @foreach($releases as $release)
             <div class="col-lg-6">
                 <!--begin::Portlet-->
                 <div class="m-portlet">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
-                                <a href="{{ route('user.project.show', $project->id) }}" class="m-portlet__head-text">
+                                <a href="{{ route('user.release.show', $release->id) }}" class="m-portlet__head-text">
                                     <span>
-                                        {{ $project->name }}
+                                        {{ $release->release_date }}
+                                        ({{ $release->project->name }})
                                     </span>
                                 </a>
                             </div>
@@ -49,19 +50,15 @@
                         <div class="m-portlet__head-tools">
                             <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item">
-                                    <a href="{{ route('user.project.edit', $project->id) }}" class="btn m-btn--pill btn-warning" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                    <a href="{{ route('user.release.edit', $release->id) }}" class="btn m-btn--pill btn-warning" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <span>
                                             <i class="fa fa-edit"></i>
                                         </span>
                                     </a>
                                 </li>
-                                <li class="m-portlet__nav-item">
-                                    <a href="{{ route('user.project.destroy', $project->id) }}" class="btn m-btn--pill btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                        <span>
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </a>
-                                </li>
+                                {{ Form::open([ 'method' => 'DELETE', 'route' => [ 'user.release.destroy', $release->id], 'class' => 'm-portlet__nav-item']) }}
+                                    {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn m-btn--pill btn-danger'] )  }}
+                                {{ Form::close() }}
                             </ul>
                         </div>
                     </div>
@@ -77,30 +74,26 @@
                                                 <a class="m-nav__link">
                                                     <i class="m-nav__link-icon flaticon-info"></i>
                                                     <span class="m-nav__link-text">
-                                                        {{ __('description') }}: {!! $project->description !!}
+                                                        {{  __('Goal') }}: {!! $release->goal !!}
                                                     </span>
                                                 </a>
                                             </li>
                                             <li class="m-nav__item">
                                                 <a class="m-nav__link">
-                                                    <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                    <span class="m-nav__link-title">
-                                                        <span class="m-nav__link-wrap">
-                                                            <span class="m-nav__link-text">
-                                                                {{ __('Members') }}
-                                                            </span>
-                                                            <span class="m-nav__link-badge">
-                                                                <span class="m-badge m-badge--success m-badge--wide">
-                                                                    {{ $project->users_count }}
-                                                                </span>
-                                                            </span>
-                                                        </span>
+                                                    <i class="m-nav__link-icon flaticon-info"></i>
+                                                    <span class="m-nav__link-text">
+                                                        {{ __('Note') }}: {!! $release->note !!}
                                                     </span>
                                                 </a>
                                             </li>
                                             <br>
                                             <li class="m-nav__item">
-                                                <img src="{{ asset($project->image) }}" alt="" style="width: 100%;">
+                                                <a class="m-nav__link">
+                                                    <i class="m-nav__link-icon flaticon-info"></i>
+                                                    <span class="m-nav__link-text">
+                                                        {{ __('Version') }}: {!! $release->version !!}
+                                                    </span>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>

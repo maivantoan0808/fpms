@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+
 use App\Http\Requests\SprintRequestStore;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\ReleaseRepositoryInterface;
@@ -24,18 +25,16 @@ class SprintController extends Controller
     public function index()
     {
         $sprints = $this->sprint->all();
-        $project = $this->project->all();
-        $release = $this->release->all();
 
-        return view('sprint.index', compact('sprints', 'project', 'release'));
+        return view('sprint.index', compact('sprints'));
     }
 
     public function create()
     {
-        $project = $this->project->all();
-        $release = $this->release->all();
+        $projects = $this->project->all();
+        $releases = $this->release->all();
 
-        return view('sprint.create', compact('project', 'release'));
+        return view('sprint.create', compact('projects', 'releases'));
     }
 
     public function ajax($id)
@@ -60,6 +59,39 @@ class SprintController extends Controller
 
         Toastr::success(__('created'), 'Success');
         
+        return redirect()->route('user.sprint.index');
+    }
+
+    public function edit($id)
+    {
+        $releases = $this->release->all();
+        $projects = $this->project->all();
+        $sprint = $this->sprint->find($id);
+        
+        return view('sprint.edit', compact('releases', 'projects', 'sprint'));
+    }
+
+    public function update(SprintRequestStore $request, $id)
+    {
+        $data = [
+            'release_plan_id' => $request->release,
+            'sprint' => $request->sprint,
+            'description' => $request->description,
+            'status' => $request->status,
+        ];
+        $sprint = $this->sprint->update($id, $data);
+
+        Toastr::success(__('edited'), 'Success');
+        
+        return redirect()->route('user.sprint.index');
+    }
+
+    public function destroy($id)
+    {
+        $sprint = $this->sprint->delete($id);
+
+        Toastr::success(__('deleted'), 'Success');
+
         return redirect()->route('user.sprint.index');
     }
 }

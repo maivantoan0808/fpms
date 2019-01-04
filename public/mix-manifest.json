@@ -11,6 +11,9 @@
     "/assets/js/select2.js": "/assets/js/select2.js",
     "/assets/js/treeview.js": "/assets/js/treeview.js",
     "/assets/js/document.js": "/assets/js/document.js",
+    "/assets/js/select.js": "/assets/js/select.js",
+    "/assets/js/datepicker.js": "/assets/js/datepicker.js",
+
     "/assets/img/favicon.ico": "/assets/img/favicon.ico",
     "/assets/auth/img/bg-1.jpg": "/assets/auth/img/bg-1.jpg",
     "/assets/auth/img/logo-1.png": "/assets/auth/img/logo-1.png",

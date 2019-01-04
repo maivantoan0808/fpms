@@ -24,6 +24,7 @@ class SprintRequestStore extends FormRequest
     public function rules()
     {
         return [
+            'release' => 'bail|required',
             'sprint' => 'bail|required',
             'description' => 'bail|required',
             'status' => 'bail|required',
