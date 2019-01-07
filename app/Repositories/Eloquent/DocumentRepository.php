@@ -29,6 +29,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->where('projects.id', '=', $projectId)
             ->where('documents.document_type', '=', 'dir')
             ->get();
+
         return $documents;
     }
 }

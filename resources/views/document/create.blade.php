@@ -31,7 +31,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Document Version
+                                {{ __('Document Version') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -40,7 +40,7 @@
                                     <i class="la la-edit"></i>
                                 </span>
                             </span>
-                            <select name="version" class="form-control m-input m-input--pill" id="exampleSelect1">
+                            <select name="document_version_id" class="form-control m-input m-input--pill" id="exampleSelect1">
                                 @foreach($project->documentVersions as $documentVersion)
                                     <option value="{{ $documentVersion->id }}">
                                         {{ $documentVersion->name }}
@@ -52,7 +52,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Document Type
+                                {{ __('Document Type') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -61,7 +61,7 @@
                                     <i class="la la-edit"></i>
                                 </span>
                             </span>
-                            <select name="type" class="form-control m-input m-input--pill" id="type">
+                            <select name="document_type" class="form-control m-input m-input--pill" id="type">
                                 <option value="dir">
                                     Directory
                                 </option>
@@ -74,7 +74,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Document Name
+                                {{ __('Document Name') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -89,7 +89,7 @@
                     <div class="form-group m-form__group">
                         <label>
                             <h5>
-                                Folder Parent
+                                {{ __('Folder Parent') }}
                             </h5>
                         </label>
                         <div class="m-input-icon m-input-icon--left m-input-icon--right">
@@ -98,7 +98,7 @@
                                     <i class="la la-edit"></i>
                                 </span>
                             </span>
-                            <select name="parent" class="form-control m-input m-input--pill" id="exampleSelect1">
+                            <select name="document_parent" class="form-control m-input m-input--pill" id="exampleSelect1">
                                 @foreach($documents as $document)
                                     <option value="{{ $document->id }}">
                                         {{ $document->name }}

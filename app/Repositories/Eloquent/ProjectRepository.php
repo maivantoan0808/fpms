@@ -31,6 +31,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
             ->whereHas('users', function ($q) use ($userId) {
                 $q->where('users.id', $userId);
             })
+            ->orderBy('created_at', 'desc')
             ->get($columns);
     }
 

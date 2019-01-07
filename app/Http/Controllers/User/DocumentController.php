@@ -7,8 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\DocumentRepositoryInterface;
 use App\Repositories\Interfaces\ProjectRepositoryInterface;
 use App\Repositories\Interfaces\DocumentVersionRepositoryInterface;
-use App\Helper\GoogleDriveHelper;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Requests\DocumentStoreRequest;
+use App\Jobs\MakeSingleFolder;
+use App\Helper\GoogleDriveHelper;
+use Illuminate\Support\Facades\Storage;
+use App\Jobs\MakeSingleFile;
+use App\Jobs\UpdateLinkDocument;
 
 class DocumentController extends Controller
 {
@@ -24,6 +29,68 @@ class DocumentController extends Controller
         $this->document = $document;
         $this->project = $project;
         $this->documentVersion = $documentVersion;
+    }
+
+    public function create($id)
+    {
+        $project = $this->project->findWithRelations($id, 'documentVersions');
+        $documents = $this->document->getDirInProject($id);
+
+        return view('document.create', compact('project', 'documents'));
+    }
+
+    public function store(DocumentStoreRequest $request, $id)
+    {
+        $projectName = $this->project->find($id)->name;
+        $parentName = $this->document->find($request->document_parent)->name;
+
+        $file = $request->file('file');
+
+        if (isset($file)) {
+            $documentExt = $file->getClientOriginalExtension();
+            $name = $request->name . '.' . $documentExt;
+
+            $filePut = $request->file->storeAs(config('fpms.temporary_file'), $name, 'public');
+
+            if ($documentExt == 'doc' || $documentExt == 'docx') {
+                $icon = config('fpms.icon.word');
+            } elseif ($documentExt == 'pptx' || $documentExt == 'ppsx') {
+                $icon = config('fpms.icon.powerpoint');
+            } elseif ($documentExt == 'xls' || $documentExt == 'xlsx') {
+                $icon = config('fpms.icon.excel');
+            } elseif ($documentExt == 'pdf') {
+                $icon = config('fpms.icon.pdf');
+            } elseif ($documentExt == 'sql') {
+                $icon = config('fpms.icon.database');
+            } elseif ($documentExt == 'jpg' || $documentExt == 'png') {
+                $icon = config('fpms.icon.photo');
+            } else {
+                $icon = config('fpms.icon.other');
+            }
+        } else {
+            $documentExt = null;
+            $documentLink = null;
+            $name = $request->name;
+            MakeSingleFolder::dispatch($projectName, $parentName, $name);
+            $icon = config('fpms.icon.folder');
+        }
+        
+        $data = array_merge($request->all(), [
+            'text' => $name,
+            'document_ext' => $documentExt,
+            'icon' => $icon,
+        ]);
+        
+        $document = $this->document->store($data);
+
+        if (isset($file)) {
+            MakeSingleFile::dispatch($projectName, $parentName, $name);
+            UpdateLinkDocument::dispatch($projectName, $name, $document->id);
+        }
+
+        Toastr::success('Document Default Successfully Created', 'Success');
+
+        return redirect()->route('user.project.show', $id);
     }
 
     public function storeDefault($id)

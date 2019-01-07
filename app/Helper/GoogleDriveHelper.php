@@ -58,4 +58,18 @@ class GoogleDriveHelper
             return Storage::cloud()->makeDirectory($dir['path'] . '/' . $subDir);
         }
     }
+
+    public static function getPath($projectName, $name)
+    {
+        return self::findDir($projectName, $name)['path'];
+    }
+
+    public static function findFile($projectName, $name)
+    {
+        $dirParrent = self::findDirProject($projectName);
+
+        $listFiles = collect(Storage::cloud()->listContents($dirParrent['path'], true));
+
+        return $listFiles->where('type', 'file')->where('name', $name)->first();
+    }
 }
