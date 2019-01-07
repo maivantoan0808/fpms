@@ -5,6 +5,7 @@ return [
     // Directory Upload Project Image
     'project_img_dir' => 'project/img/',
     'project_img' => 'project/test/',
+    'temporary_file' => 'project/file',
 
     'is_normal_user' => 2,
 
