@@ -39,12 +39,14 @@ Route::group([
     Route::resource('project', 'ProjectController');
     Route::resource('release', 'ReleaseController');
     Route::resource('sprint', 'SprintController');
-    Route::get('/sprint/getRelease/{id}', 'SprintController@ajax');
+    Route::get('/sprint/getRelease/{id}', 'SprintController@ajaxGetRelease');
+    Route::resource('meeting', 'MeetingController');
+    Route::get('/meeting/getUser/{id}', 'MeetingController@ajaxGetUser');
     
     Route::post('/document-version/store/{id}', 'DocumentVersionController@store')->name('document_version.store');
     Route::post('/project/{id}/store-document-default', 'DocumentController@storeDefault')->name('document_default.store');
     Route::get('/project/{id}/create-document', 'DocumentController@create')->name('document.create');
     Route::post('/project/{id}/store-document', 'DocumentController@store')->name('document.store');
 });
-Route::get('/sprint/getRelease/{id}', 'User\SprintController@ajax');
+Route::get('/sprint/getRelease/{id}', 'User\SprintController@ajaxGetRelease');
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');

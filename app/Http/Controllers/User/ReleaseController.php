@@ -82,7 +82,6 @@ class ReleaseController extends Controller
      */
     public function show($id)
     {
-        
     }
 
     /**

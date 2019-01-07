@@ -14,7 +14,13 @@ use App\Repositories\Eloquent\DocumentVersionRepository;
 use App\Repositories\Interfaces\DocumentRepositoryInterface;
 use App\Repositories\Eloquent\DocumentRepository;
 use App\Repositories\Eloquent\SprintRepository;
+use App\Repositories\Eloquent\MeetingRepository;
+use App\Repositories\Eloquent\MeetingMetaRepository;
+use App\Repositories\Eloquent\MeetingTypeRepository;
 use App\Repositories\Interfaces\SprintRepositoryInterface;
+use App\Repositories\Interfaces\MeetingRepositoryInterface;
+use App\Repositories\Interfaces\MeetingTypeRepositoryInterface;
+use App\Repositories\Interfaces\MeetingMetaRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -58,6 +64,18 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             SprintRepositoryInterface::class,
             SprintRepository::class
+        );
+        $this->app->bind(
+            MeetingTypeRepositoryInterface::class,
+            MeetingTypeRepository::class
+        );
+        $this->app->bind(
+            MeetingRepositoryInterface::class,
+            MeetingRepository::class
+        );
+        $this->app->bind(
+            MeetingMetaRepositoryInterface::class,
+            MeetingMetaRepository::class
         );
     }
 }

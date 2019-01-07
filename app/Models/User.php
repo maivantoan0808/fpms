@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Project')->withTimestamps()->withPivot('position_id');
     }
+
+    public function positions()
+    {
+        return $this->belongsToMany('App\Models\Position')->withTimestamps()->withPivot('project_id');
+    }
 }

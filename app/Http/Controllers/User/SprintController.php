@@ -37,12 +37,11 @@ class SprintController extends Controller
         return view('sprint.create', compact('projects', 'releases'));
     }
 
-    public function ajax($id)
+    public function ajaxGetRelease($id)
     {
         $release = $this->release->where('project_id', $id);
         
-        foreach ($release as $re)
-        {
+        foreach ($release as $re) {
             echo "<option value='" . $re->id . "'>" . $re->release_date . "</option>";
         }
     }

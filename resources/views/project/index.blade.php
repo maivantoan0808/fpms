@@ -108,7 +108,7 @@
                                 <!--end::Preview-->
                                 <!--begin::Dropdown-->
                                 <div class="m-dropdown m-dropdown--inline  m-dropdown--arrow" data-dropdown-toggle="click">
-                                    <a href="{{ route('user.release.show', $release->id) }}" class="btn btn-success">
+                                    <a href="{{ route('user.project.show', $project->id) }}" class="btn btn-success">
                                         {{ __('Detail') }}
                                     </a>
                                 </div>
