@@ -40,6 +40,10 @@ var Treeview = function () {
             },
             'state': { 'key': 'demo2' },
             'plugins': [ 'state', 'types' ]
+        }).on('select_node.jstree', function(e,data) {
+            var node = data.node.a_attr.id;
+            var documentLink = data.node.original.document_link;
+            $('#' + node).attr("href", documentLink);
         });
     }
 

@@ -26,21 +26,20 @@
                     </a>
                 @endif
             </div>
-            <div>
-                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                    <span class="m-subheader__daterange-label">
-                        <span class="m-subheader__daterange-title"></span>
-                        <span class="m-subheader__daterange-date m--font-brand"></span>
+            <div class="col-4">
+                <div class="m-input-icon m-input-icon--left m-input-icon--right">
+                    <input type="search" id="search" class="form-control m-input m-input--pill" placeholder="Search Document...">
+                    <span id="submit" class="m-input-icon__icon m-input-icon__icon--left">
+                        <span>
+                            <i class="la la-search"></i>
+                        </span>
                     </span>
-                    <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                        <i class="la la-angle-down"></i>
-                    </a>
-                </span>
+                </div>
             </div>
         </div>
     </div>
     <!-- END: Subheader -->
-    <div class="m-content">
+    <div class="m-content" id="data-search">
         <div class="row">
             <div class="col-lg-6">
                 <img src="{{ asset($project->image) }}" width="100%" alt="">
@@ -106,4 +105,5 @@
     var id = {!! $project->id !!};
 </script>
 <script src="{{ asset('assets/js/treeview.js') }}"></script>
+<script src="{{ asset('assets/js/ajaxDocument.js') }}"></script>
 @endpush

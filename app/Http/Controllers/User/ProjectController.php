@@ -51,7 +51,7 @@ class ProjectController extends Controller
     public function create()
     {
         $users = $this->user->getNormalUser(['id', 'name']);
-
+        
         return view('project.create', compact('users'));
     }
 

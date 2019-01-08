@@ -41,11 +41,13 @@ mix.copy('resources/assets/template/js/select2.js',
 mix.copy('resources/assets/template/js/treeview.js',
     'public/assets/js/treeview.js');
 mix.copy('resources/assets/js/document.js',
-    'public/assets/js/document.js')
+    'public/assets/js/document.js');
 mix.copy('resources/assets/template/js/select.js',
     'public/assets/js/select.js');
 mix.copy('resources/assets/template/js/datepicker.js',
     'public/assets/js/datepicker.js');
+mix.copy('resources/assets/js/ajaxDocument.js',
+    'public/assets/js/ajaxDocument.js');
 
 mix.copy('resources/assets/template/img/favicon.ico',
     'public/assets/img/favicon.ico');
