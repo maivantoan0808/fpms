@@ -47,6 +47,12 @@
                         Sprint
                     </span>
                 </a>
+                <a href="{{ route('user.meeting.index') }}" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-layers"></i>
+                    <span class="m-menu__link-text">
+                        Meeting
+                    </span>
+                </a>
             </li>
             <li class="m-menu__section">
                 <h4 class="m-menu__section-text">

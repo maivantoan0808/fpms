@@ -36,4 +36,14 @@ class Meeting extends Model
     {
         return $this->belongsTo('App\Models\MeetingType', 'meeting_type_id');
     }
+
+    public function meetingMetas()
+    {
+        return $this->hasMany('App\Models\MeetingMeta', 'meeting_id');
+    }
+
+    public function hostingBy($id)
+    {
+        return User::find($id);
+    }
 }

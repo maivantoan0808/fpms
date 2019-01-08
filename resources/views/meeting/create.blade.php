@@ -170,7 +170,7 @@
                 success : function (result){
                     $.each (result, function (key, value)
                     {
-                        a[key] = "<option value='" + value.id + "'>" + value.name + "</option>";
+                        users[key] = "<option value='" + value.id + "'>" + value.name + "</option>";
                     });
                     $('#m_select2_12_3').html(users);
                     $('#m_select2_12_4').html(users);
