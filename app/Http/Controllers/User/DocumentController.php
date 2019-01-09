@@ -205,4 +205,20 @@ class DocumentController extends Controller
 
         return redirect()->back();
     }
+
+    public function searchDocument(Request $request, $id)
+    {
+        $key = trim($request->data);
+        
+        $project = $this->project->findWithRelations($id, 'documents');
+        $documents = $project->documents->filter(
+            function ($item) use ($key) {
+                return false !== stristr($item['name'], $key);
+            }
+        );
+        
+        return [
+            'html' => view('document.search', compact('documents'))->render(),
+        ];
+    }
 }

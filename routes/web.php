@@ -50,3 +50,4 @@ Route::group([
 });
 Route::get('/sprint/getRelease/{id}', 'User\SprintController@ajaxGetRelease');
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');
+Route::get('/getDocument/search/{id}', 'User\DocumentController@searchDocument')->name('searchDocument');
