@@ -10,10 +10,10 @@ use App\Repositories\Interfaces\DocumentVersionRepositoryInterface;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\DocumentStoreRequest;
 use App\Jobs\MakeSingleFolder;
-use App\Helper\GoogleDriveHelper;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\MakeSingleFile;
 use App\Jobs\UpdateLinkDocument;
+use App\Jobs\DeleteSingleFile;
 
 class DocumentController extends Controller
 {
@@ -220,5 +220,22 @@ class DocumentController extends Controller
         return [
             'html' => view('document.search', compact('documents'))->render(),
         ];
+    }
+
+    public function destroy($id)
+    {
+        $document = $this->document->find($id);
+        if ($document->document_type == 'dir') {
+            Toastr::error('Cannot delete directory', 'Error');
+        } else {
+            $projectName = $document->documentVersion->project->name;
+            $name = $document->text;
+
+            DeleteSingleFile::dispatch($projectName, $name);
+            $this->document->delete($id);
+            Toastr::success('File Successfully Deleted', 'Success');
+        }
+
+        return redirect()->back();
     }
 }
