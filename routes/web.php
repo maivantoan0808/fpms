@@ -47,6 +47,7 @@ Route::group([
     Route::post('/project/{id}/store-document-default', 'DocumentController@storeDefault')->name('document_default.store');
     Route::get('/project/{id}/create-document', 'DocumentController@create')->name('document.create');
     Route::post('/project/{id}/store-document', 'DocumentController@store')->name('document.store');
+    Route::delete('/document/{id}', 'DocumentController@destroy')->name('document.destroy');
 });
 Route::get('/sprint/getRelease/{id}', 'User\SprintController@ajaxGetRelease');
 Route::get('/getTree/{id}', 'TreeViewController@getTree')->name('getTree');

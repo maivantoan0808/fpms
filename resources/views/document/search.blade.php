@@ -9,7 +9,10 @@
                             <div class="m-portlet__head-title">
                                 <p class="m-portlet__head-text">
                                     <span>
-                                        {{ $document->name }}
+                                        <i class="{{ $document->icon }}"></i>
+                                    </span>
+                                    <span>
+                                        {{ $document->text }}
                                     </span>
                                 </a>
                             </div>
@@ -17,18 +20,15 @@
                         <div class="m-portlet__head-tools">
                             <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item">
-                                    <a href="" class="btn m-btn--pill btn-warning" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                        <span>
-                                            <i class="fa fa-edit"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="m-portlet__nav-item">
-                                    <a href="" class="btn m-btn--pill btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                    <button class="btn m-btn--pill btn-danger" type="button" data-toggle="tooltip" onclick="deleteDocument({{ $document->id }})" title="Delete">
                                         <span>
                                             <i class="fa fa-trash"></i>
                                         </span>
-                                    </a>
+                                    </button>
+                                    <form id="delete-form-{{ $document->id }}" action="{{ route('user.document.destroy', $document->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </li>
                             </ul>
                         </div>
@@ -38,3 +38,6 @@
         @endforeach
     </div>
 </div>
+@push('js')
+
+@endpush
