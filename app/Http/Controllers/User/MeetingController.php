@@ -15,6 +15,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\MeetingMetaRepositoryInterface;
 
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class MeetingController extends Controller
 {
@@ -40,7 +41,7 @@ class MeetingController extends Controller
 
     public function index()
     {
-        $meetings = $this->meetings->all();
+        $meetings = $this->meeting->all();
 
         return view('meeting.index', compact('meetings'));
     }
@@ -73,25 +74,42 @@ class MeetingController extends Controller
             'time_keeper' => $request->time_keeper,
         ];
 
-        $meetingData = [
-            'meeting_time' => [
-                'date' => $request->date,
-                'time_start' => $request->time_start,
-                'time_end' => $request->time_end,
-            ],
-
-            'meeting_attendees' => $request->attendees,
+        $meetingTime = [
+            'date' => $request->date,
+            'time_start' => $request->time_start,
+            'time_end' => $request->time_end,
         ];
+        $attendees = $request->attendees;
+        $project = $this->sprint->find($request->sprint)->release->project;
+        $attendeeData = [];
+
+        foreach ($attendees as $attendee) {
+            $positions = DB::table('project_user')
+            ->join('positions', 'project_user.position_id', '=', 'positions.id')
+            ->where(['project_user.user_id' => $attendee, 'project_user.project_id' => $project->id])
+            ->get();
+            $user = $this->user->find($attendee);
+            $userMeta = [
+                $user->name => json_encode($positions->pluck('name')),
+            ];
+            $attendeeData = array_merge($attendeeData, $userMeta);
+        }
 
         $meeting = $this->meeting->store($data);
 
-        $dataMeetingMeta = [
+        $meetingAttendeesMeta = [
             'meeting_id' => $meeting->id,
-            'meta_key' => 'meeting',
-            'meta_value' => json_encode($meetingData),
+            'meeting_key' => 'meeting_attendees',
+            'meeting_value' => '[' . json_encode($attendeeData) . ']',
+        ];
+        $meetingTimeMeta = [
+            'meeting_id' => $meeting->id,
+            'meeting_key' => 'meeting_time',
+            'meeting_value' => '[' . json_encode($meetingTime) . ']',
         ];
 
-        $meeting = $this->meetingMeta->store($dataMeetingMeta);
+        $meeting = $this->meetingMeta->store($meetingAttendeesMeta);
+        $meeting = $this->meetingMeta->store($meetingTimeMeta);
 
         Toastr::success(__('created'), 'Success');
         
