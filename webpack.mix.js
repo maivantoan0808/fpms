@@ -56,8 +56,11 @@ mix.copy('resources/assets/template/img/bg-1.jpg',
 mix.copy('resources/assets/template/img/logo-1.png',
     'public/assets/auth/img/logo-1.png');
 mix.copy('resources/assets/template/img/32px.png',
-    'public/assets/img/32px.png');
+    'public/assets/css/images/jstree/32px.png');
 mix.copy('resources/assets/template/img/40px.png',
-    'public/assets/img/40px.png');
+    'public/assets/css/images/jstree/40px.png');
 mix.copy('resources/assets/template/img/throbber.gif',
-    'public/assets/img/throbber.gif');
+    'public/assets/css/images/jstree/throbber.gif');
+
+mix.copy('resources/assets/template/fonts/',
+    'public/assets/css/fonts/');
